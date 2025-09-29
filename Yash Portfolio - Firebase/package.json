@@ -1,0 +1,28 @@
+{
+  "name": "devvit-app",
+  "version": "1.0.0",
+  "description": "A Devvit Reddit app",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "devvit dev",
+    "build": "devvit build",
+    "deploy": "devvit deploy",
+    "test": "devvit test"
+  },
+  "keywords": ["devvit", "reddit", "app"],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@devvit/public-api": "^0.0.0",
+    "devvit": "^0.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {},
+  "devvit": {
+    "name": "My Devvit App",
+    "version": "1.0.0",
+    "category": "fun",
+    "description": "A simple Devvit Reddit app"
+  }
+}
+

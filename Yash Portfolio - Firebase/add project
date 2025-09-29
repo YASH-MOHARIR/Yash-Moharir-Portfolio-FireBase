@@ -1,0 +1,10 @@
+to add project,
+1. in main index page, add project-image under img-track , can rearrange . add (index - 1 )to make link 
+2. add the 3 project overlay text is javascript, inside 2d ARRAY
+
+
+For project page
+1. add images as px-01 , px-02 ...
+2. add project details like title,description, project link,etc. mention the number of image screenshots and update boolean as windowed or not ( full height imgs ) - 2 for curved
+3. Also add colors in theme control
+ 

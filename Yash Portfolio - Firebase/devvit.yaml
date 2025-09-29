@@ -1,0 +1,6 @@
+name: my-devvit-app
+version: 1.0.0
+category: fun
+description: A simple Devvit Reddit app
+entrypoint: src/index.ts
+
