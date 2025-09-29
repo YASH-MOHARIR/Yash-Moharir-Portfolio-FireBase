@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+*{
+    transition: all 1s ease;
+    // overflow: hidden;
+}
+body{
+    font-family: "Plus Jakarta Sans";
+}
+.btn{
+    border-radius: 15px;
+}
+.btn:hover{
+    background-color: #b100fd;
+    color: white;
+}
+p{
+    font-weight: 200;
+}
+.side-margin{
+margin-left: 5% ;
+margin-right: 5% ;
+}
+
+.appear{
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+}
+.disappear{
+    transform: translateY(100%);
+    opacity: 0;
+    
+}
+ 
+
+.home{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .home-main-wrapper{
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        background-image: url("./Images/bg.png");
+        background-size: cover;
+        height: 95%;
+        // width: 85vw;
+        border-radius: 20px;
+        color: white;
+
+        .navbar{
+            height: 10%;
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.5em;
+            .logo img{
+                width: 30%;
+            } 
+            .menu{
+                width: 50%;
+                display: flex;
+                justify-content: space-evenly;
+               
+               a{
+                   margin: 0;
+               }
+               a:hover{
+                color: #b100fd;
+                }
+            }
+            .btn{
+                // font-size: 1.2em;
+                padding: 10px 20px;
+            }
+        }
+        .home-main{
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            text-align: center;
+            h1{
+                font-size: 4em;
+                transition-delay: 0.3s;
+            }
+            p{
+                font-size: 1.5em;
+                transition-delay: 0.6s;
+
+            }
+            .btns{
+                transition-delay: 1s;
+            }
+            .btn{
+                font-size: 1.1em;
+                margin: 0 10px 0 10px ; 
+                padding: 20px 30px;
+                border-radius: 10px; 
+            } 
+            .btn-outline-light{
+                color: white;
+            }
+        }
+    }
+}
+
+.about{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    height: 100vh;
+
+    .left{
+        img{
+            width: 80%;
+        }
+    }
+
+    .right{
+        display: flex;
+        flex-direction: column;
+        h1{
+            font-size: 4em;
+        }
+        p{
+            font-size: 1.5em;
+        }
+
+        .numbers{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .figure{
+                font-size: 0.8em;
+                h1 span { color: #b100fd;}
+            }
+        }
+    }
+}
+
+.sec3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    h1{
+        font-size: 3em;
+    }
+    p{
+        width: 50%;
+        font-size: 1.5em;
+        font-weight: 300;
+    }
+
+    .cards{
+        margin-top: 10vh;
+        .card{
+            text-align: start;
+            padding: 40px 40px;
+            border: 1px solid rgba(128, 128, 128, 0.226);
+            border-radius: 10px;
+            transition: all 0.5s ease;
+            img{
+                width: 20%;
+            }
+            h6{
+                font-size: 1.4em;
+            }
+            p{
+                width: 100%;
+                font-size: 1em;
+            }
+        }
+        .card:hover{
+            background-color: #b100fd12;
+        }
+    }
+}
+
+.sec4{
+    background-color: #b301ff0f;
+    border-radius: 20px;
+    margin-top: 20vh;
+
+    .top{
+        display: flex;
+        justify-content: space-between;
+        height: 50vh;
+        padding: 10vh 0 10vh 0 ;
+        .left{
+            width: 40%;
+            h1{
+                font-size: 3em;
+            }
+            p{
+                font-size: 1.5em;
+            }
+        }
+        .right{
+
+            .btn{
+                font-size:2em ;
+            }
+        }
+    }
+
+    .bottom{
+        background-color: white;
+        position: relative;
+        height: 50vh;
+        border-radius: 30px;
+        margin-top: 20vh;
+        margin-bottom: 10vh;
+        .cards{
+            width: 100%;
+            position: absolute;
+            top: -20vh; 
+            
+            display: flex;
+            justify-content: space-evenly;
+
+            .card{
+                width: 30%;
+                height: 60vh;
+                padding: 2rem;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: start;
+                border: none;
+                border-radius: 30px;
+                // box-shadow: 1px 1px 10px rgba(128, 128, 128, 0.086);
+
+                img{
+                    align-self: center;
+                    border-radius: 20px;
+                    top: -30%;
+                }
+            
+                .card-actions{
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    .btn{
+                        margin-right: 20px;
+                        border-radius: 5px;
+                    }
+                    p{
+                        margin: 0;
+                    }
+                
+                }
+                .title{
+                    font-weight: 400;
+                    font-size: 1.3em;
+                }
+            }
+        }
+    }
+}
+
+ 
+
+.contact{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .contact-wrapper{
+        
+        display: flex;
+        align-items: center; 
+        background-image: url("./Images/bg.png");
+        background-size: cover;
+        height: 95%;
+        // width: 85vw;
+        border-radius: 20px;
+        color: white;
+ 
+        .form-left{
+
+            button{
+                width: 50%;
+                font-size: 1.5em;
+                border-radius: 10px;
+            }
+        }
+
+        .right{
+            h1{
+                font-size: 4em;
+            }
+            p{
+                font-size: 1.2em;
+            }
+            .contact-info{
+                display: flex;
+                align-items: center;
+                img{
+                    width: 10%;
+                }
+                p{
+                    margin-left: 10px;
+                    font-weight: 300;
+                }
+            }
+        }
+    }
+}

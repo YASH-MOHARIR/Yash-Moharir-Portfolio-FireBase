@@ -1,0 +1,498 @@
+@import url("https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+  font-family: "Prompt";
+  color: #2d2b5c;
+}
+
+h1, h6 {
+  font-family: "Poppins";
+}
+
+p {
+  font-weight: 300;
+}
+
+hr {
+  color: #6259ea;
+  height: 1px;
+}
+
+.glass-btn {
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.318);
+  border: 2px white solid;
+  padding: 20px 40px;
+  border-radius: 5px;
+}
+
+.glass-btn:hover {
+  background-color: #6259ea;
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: rgba(99, 89, 234, 0.1137254902);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 89, 234, 0.2745098039);
+  border-radius: 5px;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #6259ea;
+}
+
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+}
+
+.hover-underline-animation:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #333;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.appear {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+}
+
+.disappear {
+  transition: all 1s ease;
+  transform: translateY(50%);
+  opacity: 0;
+}
+
+.main {
+  z-index: 0;
+  background-color: white;
+  transition: all 0.5s ease;
+}
+
+.navbar {
+  margin-top: 5vh;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  font-family: "Prompt";
+  color: black;
+  position: absolute;
+  z-index: 10;
+}
+.navbar .nav-logo {
+  width: 10%;
+}
+.navbar .nav-menu {
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.navbar .nav-menu a {
+  font-size: 1.2em;
+  color: black;
+  text-decoration: none;
+}
+.navbar .nav-menu a:hover {
+  color: #6259ea;
+}
+
+.home-sec {
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.home-sec .home-content {
+  height: 60%;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.home-sec .home-content h1 {
+  font-size: 5em;
+  z-index: 1;
+}
+.home-sec .home-content h6 {
+  font-size: 2em;
+  font-weight: 300;
+}
+.home-sec .home-content .home-btn {
+  color: white;
+  background-color: #6259ea;
+  width: 30%;
+}
+.home-sec .home-img {
+  position: absolute;
+  z-index: 0;
+  right: 0%;
+  width: 60%;
+}
+
+.brands-strip {
+  background-color: rgba(99, 89, 234, 0.1843137255);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  padding: 20px 0;
+  width: 100%;
+}
+.brands-strip .container {
+  display: flex;
+  justify-content: space-around;
+}
+.brands-strip .container img {
+  width: 15%;
+}
+
+.about {
+  height: 100vh;
+}
+.about p {
+  font-size: 1.2em;
+  position: relative;
+  z-index: 1;
+}
+.about .about-pyramids {
+  z-index: 0;
+  position: absolute;
+  left: -10%;
+  top: 100%;
+  width: 50%;
+}
+.about .about-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.about .about-wrapper .about-left h1 {
+  position: relative;
+  z-index: 1;
+  font-size: 4em;
+}
+.about .about-wrapper .about-right {
+  font-weight: 400;
+}
+.about .about-wrapper .about-right .about-card {
+  font-family: "Prompt";
+  display: flex;
+  justify-content: space-between;
+}
+.about .about-wrapper .about-right .about-card .left {
+  font-size: 1em;
+  width: 80%;
+}
+.about .about-wrapper .about-right .about-card .left h6 {
+  font-size: 2em;
+}
+.about .about-wrapper .about-right .about-card .left p {
+  font-weight: 300;
+}
+.about .about-wrapper .about-right .about-card .right h1 {
+  font-size: 3em;
+}
+
+.about-buy {
+  display: flex;
+  justify-content: space-between;
+}
+.about-buy p {
+  z-index: 10;
+  font-family: "Poppins";
+  font-size: 4.2em;
+  width: 50%;
+}
+.about-buy .glass-btn {
+  color: white;
+  background-color: #6259ea;
+  height: 50%;
+}
+
+.features {
+  height: 80vh;
+  position: relative;
+}
+.features .features-img {
+  position: absolute;
+  z-index: -1;
+}
+.features .fi1 {
+  left: 10%;
+  top: -30%;
+  width: 20%;
+}
+.features .fi2 {
+  left: 20%;
+  top: 10%;
+  width: 30%;
+}
+.features .fi3 {
+  left: 70%;
+  top: 0%;
+  width: 25%;
+}
+.features .features-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 50px;
+  background-color: rgba(255, 255, 255, 0.257);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px 0 hsla(0, 0%, 75.7%, 0.3);
+  border-radius: 10px;
+}
+.features .features-wrapper .features-item-content {
+  border-right: 2px solid rgba(99, 89, 234, 0.2235294118);
+  padding: 0 50px;
+}
+.features .features-wrapper .features-item-content h4 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+.features .features-wrapper .features-item-content p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  font-family: 200;
+}
+.features .features-wrapper .features-item-content .features-bullet {
+  display: flex;
+  margin-bottom: 10px;
+}
+.features .features-wrapper .features-item-content .features-bullet .text-black {
+  margin-left: 20px;
+  font-weight: 300;
+}
+
+.reasons .reason-card .heading {
+  display: flex;
+  justify-content: space-between;
+}
+.reasons .reason-card .heading h1 {
+  width: 50%;
+  margin: 0 25px;
+}
+.reasons .reason-card .reason-card-content {
+  display: flex;
+  margin-top: 50px;
+}
+.reasons .reason-card .reason-card-content .card-img {
+  width: 50%;
+  margin-left: -10%;
+}
+.reasons .reason-card .reason-card-content .reason-card-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+}
+.reasons .reason-card .reason-card-content .reason-card-text h1 {
+  font-size: 3em;
+}
+.reasons .reason-card .reason-card-content .reason-card-text p {
+  margin-top: 50px;
+  font-weight: 300;
+  font-size: 1.5em;
+}
+.reasons .reason-card .reason-card-content .reason-card-text .btn {
+  display: inline-block;
+  color: white;
+  background-color: #6259ea;
+  width: 25%;
+  transition: all 0.5s ease;
+}
+.reasons .reason-card .reason-card-content .reason-card-text .btn:hover {
+  opacity: 0.8;
+}
+
+.prices-sec {
+  position: relative;
+  height: 100vh;
+}
+.prices-sec .disc, .prices-sec .loop {
+  position: absolute;
+  z-index: 0;
+  width: 30%;
+  top: -10%;
+}
+.prices-sec .loop {
+  width: 25%;
+  right: 0%;
+  top: 60%;
+  bottom: 10%;
+}
+.prices-sec .heading {
+  display: flex;
+  margin-top: 10vh;
+  position: relative;
+  z-index: 10;
+}
+.prices-sec .heading h1 {
+  font-size: 4em;
+  width: 50%;
+}
+.prices-sec .heading hr {
+  width: 100%;
+}
+.prices-sec .plan-cards {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 5vh;
+}
+.prices-sec .plan-cards .plan-card {
+  padding: 50px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.182);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  border: 0.5px solid white;
+  box-shadow: 10px 10px 10px rgba(180, 180, 180, 0.12);
+}
+.prices-sec .plan-cards .plan-card .plan-card-features {
+  margin: 5vh 0;
+}
+.prices-sec .plan-cards .plan-card .plan-card-features .plan-card-feature {
+  margin-bottom: 2vh;
+  display: flex;
+}
+.prices-sec .plan-cards .plan-card .card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.prices-sec .plan-cards .plan-card .card-actions h1 {
+  font-size: 5em;
+  font-family: "Prompt";
+  font-weight: 300;
+}
+.prices-sec .plan-cards .plan-card .card-actions h1 span {
+  opacity: 0.5;
+  font-size: 0.2em;
+}
+.prices-sec .plan-cards .plan-card .card-actions .btn {
+  background-color: #6259ea;
+  color: white;
+}
+
+.projects {
+  height: 110vh;
+}
+.projects h1 {
+  font-size: 4em;
+}
+.projects .project-cards {
+  display: flex;
+  overflow-x: auto;
+}
+.projects .project-cards .project-card {
+  height: 100%;
+  width: 35vw;
+  margin: 20px;
+  padding: 50px;
+  border-right: 1px solid rgba(99, 89, 234, 0.2745098039);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.projects .project-cards .project-card img {
+  border-radius: 10px;
+}
+.projects .project-cards .project-card .project-tag {
+  margin: 25px 0;
+  background-color: rgba(99, 89, 234, 0.3098039216);
+  width: 50%;
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px;
+}
+.projects .project-cards .project-card p {
+  font-size: 1.5em;
+}
+
+.footer {
+  background-color: #1a1930;
+  height: 60vh;
+  position: relative;
+  color: white !important;
+  position: sticky;
+  bottom: 0;
+  z-index: -1;
+}
+.footer .footer-spring {
+  right: 0;
+  position: absolute;
+  z-index: 2;
+  width: 25%;
+}
+.footer .container {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.footer .container .footer-left {
+  font-size: 1.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.footer .container .footer-left img {
+  width: 25%;
+}
+.footer .container .footer-left .contact-info {
+  height: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.footer .container .footer-left .contact-info a {
+  text-decoration: none;
+  color: white;
+}
+.footer .container .footer-left .contact-info a:hover {
+  color: #6259ea;
+}
+.footer .container .footer-left p a {
+  text-decoration: none;
+}
+.footer .container .footer-right {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-size: 2em;
+  align-self: flex-start;
+  width: 40%;
+}
+.footer .container .footer-right hr {
+  height: 2px;
+  color: white;
+}
+.footer .container .footer-right .footer-link {
+  text-decoration: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+.footer .container .footer-right .footer-link:hover {
+  color: #6259ea;
+}/*# sourceMappingURL=style.css.map */

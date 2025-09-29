@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Yash Moharir Portfolio page - Web Developer, Software Developer and a full stack Developer. I am open to work in a MNC. Freelance work . ">
+
+    <title>Yash Moharir - Project</title>
+    <link rel="shortcut icon" href="../Resources/Home/Y.svg" type="image/x-icon">
+    
+    <!-- Font Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+                
+    <!-- Bootstrap CDN  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Main Css  -->
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- Main JS Script  -->
+    <script defer  src="./project_page_script.js"></script>
+
+</head>
+<body>
+  
+  <audio class="d-none" id="snapAudio" src="../Resources/fingerSnap.mp3" preload="auto">
+    Your browser does not support the <code>audio</code> element.
+  </audio>
+
+    <!-- Nav Bar -->
+    <div class="nav-overlay" id="nav_overlay"></div>
+    
+    <nav class="navbar p-0">
+      <div class="container">
+
+        <a href="https://yash-moharir.web.app/" class="logo"> 
+          <div class="bg logo-aurora-one"></div>
+          <div class="bg logo-aurora-two"></div>
+          <img src="./Resources/Navbar/Yash - logo.png" alt="Logo">
+        </a>
+
+ 
+        <div class="nav">  
+          
+          <div class="nav-btns">
+
+       
+            <a class="resume-btn" id="resume_download_btn" href="https://drive.google.com/uc?export=download&id=1IwQGX1XrSFnnNjSfTzGYFHPc_MJeokgi" >
+              <p>  RESUME</p>
+              <img class="px-2" src="./Resources/Navbar/download.svg" alt="Download Image">
+            </a>
+            
+            <button class="nav-btn" id="nav_btn">
+              
+              <span class="nav-text">
+                <div class="nav-switch-texts" id="nav_switch_texts">
+                  <div class="text1" id="nav_text1">MENU</div>
+                  <div class="text2 " id="nav_text2">CLOSE</div>
+                </div>
+              </span>
+              
+              <div class="dots-div">
+                 <svg class="dots" id="dots" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+                </svg>
+              
+                </div>
+            </button>
+          
+          </div>
+            
+
+            <ul class="nav-menu" id="nav_menu">
+                <li class="menu-item">
+                  <div class=" switch-texts switch-texts1" id="switch_texts">
+                    <a class="text1" id="switch_text1" href="https://yash-moharir.web.app/"> Visit Portfolio  </a>
+                    <a class="text2 " id="switch_text2"  href="https://yash-moharir.web.app/"> Visit Portfolio  </a>
+                  </div>
+                  <img class="nav-menu-img" src="./Resources/arrow.svg" alt="arrow">
+                </li>
+            
+                <li class="menu-item">
+                  <div class=" switch-texts " id="switch_texts">
+                    <a class="text1" id="switch_text1"  href="https://yash-moharir.web.app/#main_section">Projects </a>
+                    <a class="text2 " id="switch_text2"  href="https://yash-moharir.web.app/#main_section">Projects  </a>
+                  </div>
+                  <img class="nav-menu-img" src="./Resources/arrow.svg" alt="arrow">
+
+                </li>
+            
+                <li class="menu-item resume-menu-item d-none">
+                  <div class=" switch-texts " id="switch_texts">
+                    <a class="text1" id="switch_text1"  href="https://drive.google.com/uc?export=download&id=1IwQGX1XrSFnnNjSfTzGYFHPc_MJeokgi">Resume </a>
+                    <a class="text2 " id="switch_text2"  href="https://drive.google.com/uc?export=download&id=1IwQGX1XrSFnnNjSfTzGYFHPc_MJeokgi">Resume  </a>
+                  </div>
+                  <img class="nav-menu-img" src="./Resources/arrow.svg" alt="arrow">
+
+                </li>
+             
+               
+            </ul>
+            
+            <div class="contact menu-item" id="contact_menu">
+              <div class=" switch-texts " id="switch_texts">
+                <a class="text1" id="switch_text1" href="https://yash-moharir.web.app/#footer" onclick="scrollToFooter()">Contact </a>
+                <a class="text2 " id="switch_text2" href="https://yash-moharir.web.app/#footer" onclick="scrollToFooter()">Contact  </a>
+              </div>
+              <img class="nav-menu-img" src="./Resources/contact-icon.svg" alt="Contact Icon">
+
+            </div>
+
+          </div>
+      </div>
+    </nav>
+
+    <div class="smooth-scroll-wrapper" id="smooth-scroll-wrapper">
+
+        <div class="content" id="project_content">
+
+          <div class="project-title">
+              
+              <div class="project-title-text-div" >
+                  <h1  class="project-title-text">
+                      DetectD : <br>
+                      Uncover Deep-Fakes</h1>
+              </div>
+
+              <div class="project-description-div">
+                  <p class="project-description"> 
+                  <!-- project description gets added here    -->
+                  </p>
+              </div>
+
+                  <div class="project-details">
+
+                      <div class="tech" id="project-tech">
+                          <div style="overflow: hidden; width: 100%;">
+                              <h6>Technology Used</h6>
+                          </div>
+                          <!-- Technologies used go here  -->
+                        </div>
+                      <div class="recognitions" id="project_recognitions">
+                          <div style="overflow: hidden; width: 100%;">
+                              <h6>Highlights And Recognitions</h6>
+                              <!-- Recognitions or remarks   will be added here  -->
+                            </div>
+                      </div>
+                  
+                  </div>
+
+                    <a href="" id="visit_project_link">
+
+                      <div class="btn" id="btn"> <div class="dot" id="dot"></div>
+                      <div class="text-div">
+                        <span class="btn-text-ghost"> VISIT WEBSITE </span>
+                        <span class="btn-text" id="btn-text"> VISIT WEBSITE </span>  
+                        <span class="arrow" id="arrow"><img src="./Resources/arrow.svg" alt="Arrow Icon"></span>
+                      </div>
+                    </div> 
+                  </a>  
+
+                  
+          </div>
+
+          <!-- Images Go Here -->
+          <!-- <div class="contact-form">
+            <form class="mssg-form" id="contact_form">
+
+              <input class="form-control" id="Sender_Name" type="text" name="name" placeholder="Your Name  ">
+              <input class="form-control"  id="Sender_Email" type="email" name="mail" placeholder="Your Email  ">
+              <textarea rows="5" cols="50" class="form-control" id="Sender_Message" placeholder="Your Message / Details"></textarea>
+              
+              <span class="form-mssg mt-2"> Heya :D</span>
+  
+              <button type="submit" class="form-btn dot-btn" id="form-btn"> 
+                <div class="dot" id="dot"></div>
+                <div class="text-div">
+                    <span class="btn-text-ghost"> Submit </span>
+                    <span class="btn-text" id="btn-text"> Submit </span>  
+                    <span class="arrow" id="arrow"><img src="./Resources/arrow.svg" alt="arrow"></span>
+                </div>
+              </button> 
+  
+            </form>
+          </div> -->
+
+        </div>
+    
+
+    </div>
+</body>
+</html>
