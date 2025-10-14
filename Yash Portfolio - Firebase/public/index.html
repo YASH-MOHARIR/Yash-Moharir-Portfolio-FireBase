@@ -54,7 +54,20 @@
 
     <!-- Main JS Script -->
     <script defer src="script.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EH218RHPHX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-EH218RHPHX");
+    </script>
   </head>
+
   <body>
     <!-- Audio for Button Interactions -->
     <audio class="d-none" id="snapAudio" src="./Resources/fingerSnap.mp3" preload="auto">
