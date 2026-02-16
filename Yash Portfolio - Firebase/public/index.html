@@ -31,7 +31,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 
-    <!-- Font Import -->
+    <!-- Font Import - display=swap for fast text rendering -->
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet" />
@@ -69,6 +69,9 @@
   </head>
 
   <body>
+    <!-- Skip to main content link for keyboard/screen reader users -->
+    <a href="#home" class="skip-link">Skip to main content</a>
+
     <!-- Audio for Button Interactions -->
     <audio class="d-none" id="snapAudio" src="./Resources/fingerSnap.mp3" preload="auto">
       Your browser does not support the <code>audio</code> element.
@@ -96,8 +99,8 @@
         <div class="nav">
           <div class="nav-btns">
             <!-- //// -->
-            <a href="https://www.linkedin.com/in/yash-moharir/" target="_blank">
-              <button id="btn" class="liquid-glass-btn"></button>
+            <a href="https://www.linkedin.com/in/yash-moharir/" target="_blank" rel="noopener noreferrer" aria-label="Connect on LinkedIn">
+              <button id="linkedin_btn" class="liquid-glass-btn" aria-hidden="true"></button>
             </a>
 
             <svg style="position: absolute; width: 0; height: 0">
@@ -111,8 +114,8 @@
                   result="map" />
                 <feGaussianBlur in="SourceGraphic" stdDeviation="0.02" result="blur" />
                 <feDisplacementMap id="disp" in="blur" in2="map" scale="1" xChannelSelector="R" yChannelSelector="G">
-                  <animate attributeName="scale" to="1.4" dur="0.3s" begin="btn.mouseover" fill="freeze" />
-                  <animate attributeName="scale" to="1" dur="0.3s" begin="btn.mouseout" fill="freeze" />
+                  <animate attributeName="scale" to="1.4" dur="0.3s" begin="linkedin_btn.mouseover" fill="freeze" />
+                  <animate attributeName="scale" to="1" dur="0.3s" begin="linkedin_btn.mouseout" fill="freeze" />
                 </feDisplacementMap>
               </filter>
             </svg>
@@ -143,65 +146,65 @@
 
           <ul class="nav-menu" id="nav_menu" role="menu">
             <li class="menu-item" role="menuitem">
-              <div class="switch-texts switch-texts1" id="switch_texts">
-                <a class="text1" id="switch_text1" onclick="scrollto(0)" href="#home">Heya!</a>
-                <a class="text2" id="switch_text2" onclick="scrollto(0)" href="#home">Heya!</a>
+              <div class="switch-texts switch-texts1">
+                <a class="text1 menu-link-a" onclick="scrollto(0)" href="#home">Heya!</a>
+                <a class="text2 menu-link-b" onclick="scrollto(0)" href="#home">Heya!</a>
               </div>
-              <img class="nav-menu-img" src="./Resources/arrow.svg" alt="" />
+              <img class="nav-menu-img" src="./Resources/arrow.svg" alt="Navigate to Heya section" />
             </li>
             <li class="menu-item" role="menuitem">
-              <div class="switch-texts" id="switch_texts">
-                <a class="text1" id="switch_text1" onclick="scrollto(1)" href="#about">About</a>
-                <a class="text2" id="switch_text2" onclick="scrollto(1)" href="#about">About</a>
+              <div class="switch-texts">
+                <a class="text1 menu-link-a" onclick="scrollto(1)" href="#about">About</a>
+                <a class="text2 menu-link-b" onclick="scrollto(1)" href="#about">About</a>
               </div>
-              <img class="nav-menu-img" src="./Resources/arrow.svg" alt="" />
+              <img class="nav-menu-img" src="./Resources/arrow.svg" alt="Navigate to About section" />
             </li>
             <li class="menu-item" role="menuitem">
-              <div class="switch-texts" id="switch_texts">
-                <a class="text1" id="switch_text1" onclick="scrollto(2)" href="#main_section">Projects</a>
-                <a class="text2" id="switch_text2" onclick="scrollto(2)" href="#main_section">Projects</a>
+              <div class="switch-texts">
+                <a class="text1 menu-link-a" onclick="scrollto(2)" href="#main_section">Projects</a>
+                <a class="text2 menu-link-b" onclick="scrollto(2)" href="#main_section">Projects</a>
               </div>
-              <img class="nav-menu-img" src="./Resources/arrow.svg" alt="" />
+              <img class="nav-menu-img" src="./Resources/arrow.svg" alt="Navigate to Projects section" />
             </li>
             <li class="menu-item" role="menuitem">
-              <div class="switch-texts" id="switch_texts">
-                <a class="text1" id="switch_text1" href="#skills_section" onclick="scrollto(3)">Skills</a>
-                <a class="text2" id="switch_text2" href="#skills_section" onclick="scrollto(3)">Skills</a>
+              <div class="switch-texts">
+                <a class="text1 menu-link-a" href="#skills_section" onclick="scrollto(3)">Skills</a>
+                <a class="text2 menu-link-b" href="#skills_section" onclick="scrollto(3)">Skills</a>
               </div>
-              <img class="nav-menu-img" src="./Resources/arrow.svg" alt="" />
+              <img class="nav-menu-img" src="./Resources/arrow.svg" alt="Navigate to Skills section" />
             </li>
             <li class="menu-item" role="menuitem">
-              <div class="switch-texts" id="switch_texts">
-                <a class="text1" id="switch_text1" href="#experiences_section" onclick="scrollto(4)">Experience</a>
-                <a class="text2" id="switch_text2" href="#experiences_section" onclick="scrollto(4)">Experience</a>
+              <div class="switch-texts">
+                <a class="text1 menu-link-a" href="#experiences_section" onclick="scrollto(4)">Experience</a>
+                <a class="text2 menu-link-b" href="#experiences_section" onclick="scrollto(4)">Experience</a>
               </div>
-              <img class="nav-menu-img" src="./Resources/arrow.svg" alt="" />
+              <img class="nav-menu-img" src="./Resources/arrow.svg" alt="Navigate to Experience section" />
             </li>
             <li class="menu-item resume-menu-option" role="menuitem">
-              <div class="switch-texts" id="switch_texts">
+              <div class="switch-texts">
                 <a
-                  class="text1"
-                  id="switch_text1"
+                  class="text1 menu-link-a"
                   href="https://drive.google.com/uc?export=download&id=1FGx-aU-ptR5XLGtFab8gsUe3r2SIVxKR"
+                  rel="noopener noreferrer"
                   >Resume</a
                 >
                 <a
-                  class="text2"
-                  id="switch_text2"
+                  class="text2 menu-link-b"
                   href="https://drive.google.com/uc?export=download&id=1FGx-aU-ptR5XLGtFab8gsUe3r2SIVxKR"
+                  rel="noopener noreferrer"
                   >Resume</a
                 >
               </div>
-              <img class="nav-menu-img" src="./Resources/arrow.svg" alt="" />
+              <img class="nav-menu-img" src="./Resources/arrow.svg" alt="Download resume" />
             </li>
           </ul>
 
           <div class="contact menu-item" id="contact_menu">
-            <div class="switch-texts" id="switch_texts">
-              <a class="text1" id="switch_text1" href="#footer" onclick="scrollToFooter()">Contact</a>
-              <a class="text2" id="switch_text2" href="#footer" onclick="scrollToFooter()">Contact</a>
+            <div class="switch-texts">
+              <a class="text1 menu-link-a" href="#footer" onclick="scrollToFooter()">Contact</a>
+              <a class="text2 menu-link-b" href="#footer" onclick="scrollToFooter()">Contact</a>
             </div>
-            <img class="nav-menu-img" src="./Resources/contact-icon.svg" alt="" />
+            <img class="nav-menu-img" src="./Resources/contact-icon.svg" alt="Navigate to Contact section" />
           </div>
         </div>
       </div>
@@ -244,6 +247,9 @@
                 class="home-image"
                 src="./Resources/Home/Yash_potrait.webp"
                 alt="Yash Moharir - Full-Stack Developer Portrait"
+                fetchpriority="high"
+                width="600"
+                height="800"
                 loading="eager" />
             </div>
           </div>
@@ -306,12 +312,12 @@
             <div class="quote-line-wrapper">
               <span class="quote-line line4">
                 <button class="about-btn dot-btn" id="about_btn" aria-label="Read more about me">
-                  <div class="dot" id="dot"></div>
+                  <div class="dot"></div>
                   <div class="text-div">
                     <span class="btn-text-ghost">Read About Me</span>
-                    <span class="btn-text" id="btn-text">Read About Me</span>
-                    <span class="arrow" id="arrow">
-                      <img src="./Resources/arrow.svg" alt="" />
+                    <span class="btn-text">Read About Me</span>
+                    <span class="arrow">
+                      <img src="./Resources/arrow.svg" alt="Expand" />
                     </span>
                   </div>
                 </button>
@@ -351,18 +357,18 @@
           </a>
 
           <span class="overlay_text ot1" style="left: 10%; top: 10vw" data-parallax-speed="0.7">
-            <span class="ghost_text" id="ghost_text">Yash</span>
-            <span class="overlay-text-content" id="overlay_text_content">Yash</span>
+            <span class="ghost_text">Yash</span>
+            <span class="overlay-text-content">Yash</span>
           </span>
 
           <span class="overlay_text ot2" style="left: 50%; top: 15%" data-parallax-speed="1.5">
-            <span class="ghost_text" id="ghost_text">Manish</span>
-            <span class="overlay-text-content" id="overlay_text_content">Manish</span>
+            <span class="ghost_text">Manish</span>
+            <span class="overlay-text-content">Manish</span>
           </span>
 
           <span class="overlay_text ot3" style="left: 70%; top: 70%" data-parallax-speed="0.5">
-            <span class="ghost_text" id="ghost_text">Moharir</span>
-            <span class="overlay-text-content" id="overlay_text_content">Moharir</span>
+            <span class="ghost_text">Moharir</span>
+            <span class="overlay-text-content">Moharir</span>
           </span>
 
           <div class="project-heading container">
@@ -968,24 +974,27 @@
                 required
                 aria-label="Your email" />
 
+              <label for="Sender_Message" class="visually-hidden">Your Message</label>
               <textarea
                 rows="5"
                 cols="50"
                 class="form-control"
                 id="Sender_Message"
+                name="message"
                 placeholder="Your Message / Details"
+                maxlength="2000"
                 required
                 aria-label="Your message"></textarea>
 
               <span class="form-mssg mt-2" role="status" aria-live="polite">Heya :D</span>
 
               <button type="submit" class="form-btn dot-btn" id="form-btn" aria-label="Submit contact form">
-                <div class="dot" id="dot"></div>
+                <div class="dot"></div>
                 <div class="text-div">
                   <span class="btn-text-ghost">Submit</span>
-                  <span class="btn-text" id="btn-text">Submit</span>
-                  <span class="arrow" id="arrow">
-                    <img src="./Resources/arrow.svg" alt="" />
+                  <span class="btn-text">Submit</span>
+                  <span class="arrow">
+                    <img src="./Resources/arrow.svg" alt="Submit" />
                   </span>
                 </div>
               </button>
