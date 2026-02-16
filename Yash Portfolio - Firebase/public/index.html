@@ -55,16 +55,23 @@
     <!-- Main JS Script -->
     <script defer src="script.js"></script>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EH218RHPHX"></script>
+    <!-- Google tag (gtag.js) - deferred to reduce main-thread blocking -->
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+      function gtag() { dataLayer.push(arguments); }
+      function loadGtag() {
+        var s = document.createElement("script");
+        s.async = true;
+        s.src = "https://www.googletagmanager.com/gtag/js?id=G-EH218RHPHX";
+        document.head.appendChild(s);
+        gtag("js", new Date());
+        gtag("config", "G-EH218RHPHX");
       }
-      gtag("js", new Date());
-
-      gtag("config", "G-EH218RHPHX");
+      if (requestIdleCallback) {
+        requestIdleCallback(loadGtag, { timeout: 2500 });
+      } else {
+        window.addEventListener("load", function () { setTimeout(loadGtag, 1); });
+      }
     </script>
   </head>
 
@@ -93,7 +100,7 @@
         <a href="#home" class="logo" aria-label="Yash Moharir Logo - Home">
           <div class="bg logo-aurora-one"></div>
           <div class="bg logo-aurora-two"></div>
-          <img src="./Resources/Navbar/Yash - logo.png" alt="Yash Moharir Logo" />
+          <img src="./Resources/Navbar/Yash - logo.png" alt="Yash Moharir Logo" width="120" height="40" />
         </a>
 
         <div class="nav">
@@ -223,16 +230,16 @@
           <div class="left">
             <div class="intro-name">
               <div class="text" id="rotating_text">
-                <img src="./Resources/Home/Y.svg" alt="Y" />
+                <img src="./Resources/Home/Y.svg" alt="Y" width="80" height="80" />
               </div>
               <div class="text" id="rotating_text">
-                <img src="./Resources/Home/A.svg" style="margin-left: -25px" alt="A" />
+                <img src="./Resources/Home/A.svg" style="margin-left: -25px" alt="A" width="80" height="80" />
               </div>
               <div class="text" id="rotating_text">
-                <img src="./Resources/Home/S.svg" style="margin-left: -25px" alt="S" />
+                <img src="./Resources/Home/S.svg" style="margin-left: -25px" alt="S" width="80" height="80" />
               </div>
               <div class="text" id="rotating_text">
-                <img src="./Resources/Home/H.svg" style="margin-left: -25px" alt="H" />
+                <img src="./Resources/Home/H.svg" style="margin-left: -25px" alt="H" width="80" height="80" />
               </div>
             </div>
 
@@ -432,6 +439,8 @@
               class="image"
               src="./Resources/Projects/8.webp"
               alt="Medscan - AI Bot Project"
+              width="400"
+              height="250"
               onclick="setProjectGotoLink(7)"
               draggable="false"
               loading="lazy" />
@@ -439,6 +448,8 @@
               class="image"
               src="./Resources/Projects/9.webp"
               alt="Tile Slide - Game Project"
+              width="400"
+              height="250"
               onclick="setProjectGotoLink(8)"
               draggable="false"
               loading="lazy" />
@@ -446,6 +457,8 @@
               class="image"
               src="./Resources/Projects/10.webp"
               alt="Kanbas - University Course System"
+              width="400"
+              height="250"
               onclick="setProjectGotoLink(9)"
               draggable="false"
               loading="lazy" />
@@ -453,6 +466,8 @@
               class="image"
               src="./Resources/Projects/1.webp"
               alt="Swipe - Sample Product"
+              width="400"
+              height="250"
               onclick="setProjectGotoLink(0)"
               draggable="false"
               loading="lazy" />
@@ -460,6 +475,8 @@
               class="image"
               src="./Resources/Projects/4.webp"
               alt="Parie Doe - Portfolio"
+              width="400"
+              height="250"
               onclick="setProjectGotoLink(1)"
               draggable="false"
               loading="lazy" />
@@ -467,6 +484,8 @@
               class="image"
               src="./Resources/Projects/5.webp"
               alt="DetectD - Deepfake Detection"
+              width="400"
+              height="250"
               onclick="setProjectGotoLink(2)"
               draggable="false"
               loading="lazy" />
@@ -474,6 +493,8 @@
               class="image"
               src="./Resources/Projects/2.webp"
               alt="BrandLn - Landing Page"
+              width="400"
+              height="250"
               onclick="setProjectGotoLink(3)"
               draggable="false"
               loading="lazy" />
@@ -481,6 +502,8 @@
               class="image"
               src="./Resources/Projects/3.webp"
               alt="Yash Incubators"
+              width="400"
+              height="250"
               onclick="setProjectGotoLink(4)"
               draggable="false"
               loading="lazy" />
@@ -488,6 +511,8 @@
               class="image"
               src="./Resources/Projects/6.webp"
               alt="Pixops - AI Image Manipulator"
+              width="400"
+              height="250"
               onclick="setProjectGotoLink(5)"
               draggable="false"
               loading="lazy" />
@@ -495,6 +520,8 @@
               class="image"
               src="./Resources/Projects/7.webp"
               alt="Syngen - Synthetic Data Generator"
+              width="400"
+              height="250"
               onclick="setProjectGotoLink(6)"
               draggable="false"
               loading="lazy" />

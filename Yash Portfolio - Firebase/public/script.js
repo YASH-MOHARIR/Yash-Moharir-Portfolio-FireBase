@@ -45,68 +45,65 @@ let isInitialized = false;
 let contentObserver = null;
 
 // Simple height calculation without observer triggers
+// Batches all layout reads then writes to avoid forced reflows
 function recalcLayoutHeights() {
   // Prevent calculation during animations
   if (isAnimating) return;
 
   try {
+    // --- Batch all layout READS first (no DOM writes) ---
     const footer = document.querySelector(".footer");
+    let footerHeightRead = 0;
     if (footer) {
-      footer_height = footer.getBoundingClientRect().height;
+      footerHeightRead = footer.getBoundingClientRect().height;
     }
 
-    // Use scrollHeight for accurate content measurement
     const contentHeight = scrollWrap.scrollHeight;
-    
-    // Calculate experiences section separately if it exists
     const experiencesSection = document.querySelector(".experiences-section");
     let experiencesBuffer = 0;
     if (experiencesSection) {
-      const experiencesHeight = experiencesSection.scrollHeight;
-      experiencesBuffer = Math.max(0, experiencesHeight - experiencesSection.clientHeight);
+      experiencesBuffer = Math.max(0, experiencesSection.scrollHeight - experiencesSection.clientHeight);
     }
 
-    // Add dynamic buffer based on viewport
-    const dynamicBuffer = window.innerHeight * 0.1;
-    
-    // Calculate final height
-    const finalHeight = Math.ceil(contentHeight + footer_height + experiencesBuffer + dynamicBuffer);
-    
-    // Only update if height changed significantly (more than 50px difference)
+    const innerHeight = window.innerHeight;
+    const dynamicBuffer = innerHeight * 0.1;
+    const finalHeight = Math.ceil(contentHeight + footerHeightRead + experiencesBuffer + dynamicBuffer);
+
+    const bodyScrollHeight = document.body.scrollHeight;
+    const viewportRatio = bodyScrollHeight > 0 ? innerHeight / bodyScrollHeight : 0;
+
+    // --- Then do all WRITES in one batch ---
     if (Math.abs(lastCalculatedHeight - finalHeight) > 50) {
-      body.style.height = finalHeight + "px";
+      footer_height = footerHeightRead;
       lastCalculatedHeight = finalHeight;
-      
-      // Update total height for scroll calculations
-      totalHeight = contentHeight + footer_height - window.innerHeight;
-      
-      // Update scroll bar
-      updateScrollBar();
-      
-      // Layout calculation complete
+      body.style.height = finalHeight + "px";
+      totalHeight = contentHeight + footer_height - innerHeight;
+
+      const scroller_parent = document.querySelector(".scroller-parent");
+      const scroller_thumb = document.querySelector(".scroller-thumb");
+      if (scroller_parent && scroller_thumb) {
+        const thumbHeight = Math.max(5, viewportRatio * 35);
+        scroller_thumb.style.height = thumbHeight + "vh";
+        scroller_parent.style.height = "35vh";
+      }
     }
   } catch (error) {
     console.error('Error recalculating layout:', error);
   }
 }
 
-// Fixed scroll bar update function
-function updateScrollBar() {
+// Fixed scroll bar update function (uses passed values when called from recalc to avoid reflow)
+function updateScrollBar(optScrollHeight, optInnerHeight) {
   const scroller_parent = document.querySelector(".scroller-parent");
   const scroller_thumb = document.querySelector(".scroller-thumb");
-  
   if (!scroller_parent || !scroller_thumb) return;
-  
-  // Calculate viewport ratio to total scrollable height
-  const viewportRatio = window.innerHeight / document.body.scrollHeight;
-  
-  // Set thumb height proportionally (min 5vh, max based on ratio)
-  const thumbHeight = Math.max(5, viewportRatio * 35); // 35vh is parent height
+
+  const sh = optScrollHeight != null ? optScrollHeight : document.body.scrollHeight;
+  const ih = optInnerHeight != null ? optInnerHeight : window.innerHeight;
+  const viewportRatio = sh > 0 ? ih / sh : 0;
+  const thumbHeight = Math.max(5, viewportRatio * 35);
   scroller_thumb.style.height = thumbHeight + "vh";
-  
-  // Update parent height if needed
-  const parentHeight = 35; // vh
-  scroller_parent.style.height = parentHeight + "vh";
+  scroller_parent.style.height = "35vh";
 }
 
 // Initial setup only - no continuous monitoring
@@ -1041,7 +1038,14 @@ var skills_sec = document.querySelector("#skills_section");
 var experiences_sec = document.querySelector("#experiences_section");
 var logo = document.querySelector(".logo");
 
-logo_width = logo.offsetWidth + 10;
+// Lazy-cache logo width to avoid forced reflow at load; read once when first needed
+var logo_width_cached = null;
+function getLogoWidth() {
+  if (logo_width_cached == null && logo) {
+    logo_width_cached = logo.offsetWidth + 10;
+  }
+  return logo_width_cached != null ? logo_width_cached : 0;
+}
 
 // Quote section margin left
 var quote_sec = document.querySelector(".quote");
@@ -1049,6 +1053,7 @@ var quote_lines = document.querySelectorAll(".quote-line");
 
 const observer = new IntersectionObserver(
   (entries) => {
+    var logo_width = getLogoWidth();
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         if (entry.target.classList.contains("project-sec")) {
