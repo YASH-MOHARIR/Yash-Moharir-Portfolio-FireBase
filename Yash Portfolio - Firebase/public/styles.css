@@ -424,11 +424,18 @@ a {
   position: absolute;
   bottom: 0vh;
   left: 0;
-  background-color: rgba(60, 128, 255, 0.56);
   border-radius: 8px;
   height: 0%;
   width: 100%;
   transition: all cubic-bezier(0.93, 0.12, 0.21, 0.81) 1.5s;
+  overflow: hidden;
+}
+.smooth-scroll-wrapper .content .home-intro-section .right .home-img-bg .backdrop .backdrop-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .smooth-scroll-wrapper .content .home-intro-section .right .home-img-bg .home-image {
   height: 100%;
