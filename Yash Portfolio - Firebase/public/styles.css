@@ -453,83 +453,142 @@ a {
   font-family: "Montserrat";
 }
 .smooth-scroll-wrapper .content .quote-sec .about-info {
-  height: 80vh;
+  min-height: 60vh;
+  max-height: 90vh;
   width: 100%;
   position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) translateX(100%);
   padding: 45px;
   background-color: rgba(175, 203, 255, 0.2509803922);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-radius: 20px;
   z-index: 10;
-  transform: scale(0);
-  transform-origin: 50% 50%;
-  transition: all 0.5s ease;
-  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  visibility: hidden;
+}
+.smooth-scroll-wrapper .content .quote-sec .about-info .about-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.smooth-scroll-wrapper .content .quote-sec .about-info .about-side {
+  flex: 0 0 30%;
+  min-width: 0;
+}
+.smooth-scroll-wrapper .content .quote-sec .about-info .about-main {
+  flex: 1;
+  min-width: 0;
+}
+.smooth-scroll-wrapper .content .quote-sec .about-info .about-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.95em;
+  line-height: 1.5;
+  color: #234a7d;
+}
+.smooth-scroll-wrapper .content .quote-sec .about-info .about-highlights li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.smooth-scroll-wrapper .content .quote-sec .about-info .about-highlights li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #afcbff;
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+  .smooth-scroll-wrapper .content .quote-sec .about-info {
+    padding: 24px;
+    max-height: 85vh;
+  }
+  .smooth-scroll-wrapper .content .quote-sec .about-info .about-header {
+    margin-bottom: 0.75rem;
+  }
+  .smooth-scroll-wrapper .content .quote-sec .about-info .about-heading {
+    font-size: 4em;
+  }
+  .smooth-scroll-wrapper .content .quote-sec .about-info .about-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .smooth-scroll-wrapper .content .quote-sec .about-info .about-side,
+  .smooth-scroll-wrapper .content .quote-sec .about-info .about-main {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+  .smooth-scroll-wrapper .content .quote-sec .about-info .about-highlights {
+    font-size: 0.9em;
+  }
+  .smooth-scroll-wrapper .content .quote-sec .about-info .about-text-content {
+    font-size: 1.2em;
+  }
 }
 .smooth-scroll-wrapper .content .quote-sec .about-info .about-heading,
 .smooth-scroll-wrapper .content .quote-sec .about-info .about-text-content {
   opacity: 0;
   transition: all 0.3s ease;
 }
+.smooth-scroll-wrapper .content .quote-sec .about-info .about-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  flex-shrink: 0;
+  margin-bottom: 1rem;
+}
 .smooth-scroll-wrapper .content .quote-sec .about-info .about-heading {
   font-size: 6em;
+  flex-shrink: 0;
+  margin: 0;
+  text-align: left;
 }
 .smooth-scroll-wrapper .content .quote-sec .about-info .about-text-content {
   font-family: "montserrat";
   font-size: 1.4em;
   line-height: 1.6;
 }
-.smooth-scroll-wrapper .content .quote-sec .about-info .btns {
-  display: flex;
-  position: relative;
-  justify-content: space-around;
-  margin-left: auto;
-  right: 1px;
-  bottom: 1px;
-  width: 25%;
-}
 .smooth-scroll-wrapper .content .quote-sec .about-info .about-highlight {
-  padding: 5px;
-  background-color: #afcbff;
-  border-radius: 3px;
-  transition: 0.3s all ease;
-}
-.smooth-scroll-wrapper .content .quote-sec .about-info .about-highlight:hover {
-  background-color: rgba(175, 203, 255, 0.2509803922);
-  box-shadow: 1px 10px 10px;
+  font-weight: bold;
 }
 .smooth-scroll-wrapper .content .quote-sec .about-info .about-info-close-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   background-color: #afcbff;
-  font-size: 1.4em;
-  padding: 10px 20px;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #234a7d;
+  transition: all 0.3s ease;
 }
 .smooth-scroll-wrapper .content .quote-sec .about-info .about-info-close-btn:hover {
   background-color: rgba(175, 203, 255, 0.2509803922);
 }
-.smooth-scroll-wrapper .content .quote-sec .about-info .about-scroll-btn {
-  display: flex;
-  background-color: #afcbff;
-  color: #234a7d;
-  transition: all 0.3s ease;
-  padding: 10px 20px;
-  font-size: 1.4em;
-  cursor: pointer;
-}
-.smooth-scroll-wrapper .content .quote-sec .about-info .about-scroll-btn .down-arrow {
-  fill: #234a7d;
-  margin-left: 20px;
-}
-.smooth-scroll-wrapper .content .quote-sec .about-info .about-scroll-btn:hover {
-  background-color: rgba(175, 203, 255, 0.2509803922);
-  color: #234a7d;
-}
-.smooth-scroll-wrapper .content .quote-sec .about-info .about-scroll-btn :hover .down-arrow {
-  fill: white;
+.smooth-scroll-wrapper .content .quote-sec .about-info .about-info-close-btn svg {
+  display: block;
 }
 .smooth-scroll-wrapper .content .quote-sec .about-info-show {
-  opacity: 1;
-  transform: scale(1);
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
 }
 .smooth-scroll-wrapper .content .quote-sec .quote {
   font-size: 4.5em;
@@ -1570,30 +1629,19 @@ a {
   .quote-line {
     margin-left: 10vw !important;
   }
-  .quote-sec .about-info .btns {
-    width: 100% !important;
-    font-size: 1.4em !important;
-    border-radius: 40px !important;
+  .quote-sec .about-info {
+    padding: 20px !important;
+    max-height: 88vh !important;
+  }
+  .quote-sec .about-info .about-heading {
+    font-size: 3em !important;
   }
   .quote-sec .about-info .about-text-content {
-    font-size: 1.6em !important;
+    font-size: 1.1em !important;
   }
   .quote-sec .about-info .about-info-close-btn {
-    background-color: #afcbff;
-    font-size: 1.6em !important;
-    padding: 2px 10px !important;
-  }
-  .quote-sec .about-info .about-scroll-btn {
-    display: flex;
-    background-color: #afcbff;
-    color: #234a7d;
-    transition: all 0.3s ease;
-    padding: 10px 20px;
-    font-size: 1.4em;
-  }
-  .quote-sec .about-info .about-scroll-btn .down-arrow {
-    fill: #234a7d;
-    margin-left: 20px;
+    right: 0;
+    padding: 0.4rem 0.6rem;
   }
   .drag-icon {
     left: 25% !important;
