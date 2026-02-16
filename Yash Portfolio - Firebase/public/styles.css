@@ -455,23 +455,23 @@ a {
 .smooth-scroll-wrapper .content .quote-sec .about-info {
   min-height: 60vh;
   max-height: 90vh;
-  width: 100%;
+  width: 0;
   position: absolute;
-  right: 0;
+  left: 0;
   top: 50%;
-  transform: translateY(-50%) translateX(100%);
+  transform: translateY(-50%);
   padding: 45px;
   background-color: rgba(175, 203, 255, 0.2509803922);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-radius: 20px;
   z-index: 10;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  overflow-x: hidden;
-  visibility: hidden;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 .smooth-scroll-wrapper .content .quote-sec .about-info .about-container {
   display: flex;
@@ -502,6 +502,24 @@ a {
   position: relative;
   padding-left: 1.25rem;
   margin-bottom: 0.75rem;
+  opacity: 0;
+  transform: translateX(16px);
+}
+.smooth-scroll-wrapper .content .quote-sec .about-info-show .about-highlights li {
+  animation: about-bullet-appear 0.4s ease forwards;
+}
+.smooth-scroll-wrapper .content .quote-sec .about-info-show .about-highlights li:nth-child(1) { animation-delay: 0.15s; }
+.smooth-scroll-wrapper .content .quote-sec .about-info-show .about-highlights li:nth-child(2) { animation-delay: 0.22s; }
+.smooth-scroll-wrapper .content .quote-sec .about-info-show .about-highlights li:nth-child(3) { animation-delay: 0.29s; }
+.smooth-scroll-wrapper .content .quote-sec .about-info-show .about-highlights li:nth-child(4) { animation-delay: 0.36s; }
+.smooth-scroll-wrapper .content .quote-sec .about-info-show .about-highlights li:nth-child(5) { animation-delay: 0.43s; }
+.smooth-scroll-wrapper .content .quote-sec .about-info-show .about-highlights li:nth-child(6) { animation-delay: 0.5s; }
+.smooth-scroll-wrapper .content .quote-sec .about-info-show .about-highlights li:nth-child(7) { animation-delay: 0.57s; }
+@keyframes about-bullet-appear {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 .smooth-scroll-wrapper .content .quote-sec .about-info .about-highlights li::before {
   content: "•";
@@ -537,10 +555,20 @@ a {
     font-size: 1.2em;
   }
 }
-.smooth-scroll-wrapper .content .quote-sec .about-info .about-heading,
-.smooth-scroll-wrapper .content .quote-sec .about-info .about-text-content {
+.smooth-scroll-wrapper .content .quote-sec .about-info .about-heading {
   opacity: 0;
-  transition: all 0.3s ease;
+  transition: opacity 0.3s ease;
+}
+.smooth-scroll-wrapper .content .quote-sec .about-info .about-text-content {
+  transition: opacity 0.3s ease;
+}
+.smooth-scroll-wrapper .content .quote-sec .about-info .about-text-content .word-reveal {
+  opacity: 0;
+  display: inline;
+}
+.smooth-scroll-wrapper .content .quote-sec .about-info .about-text-content .word-reveal.visible {
+  opacity: 1;
+  transition: opacity 0.15s ease;
 }
 .smooth-scroll-wrapper .content .quote-sec .about-info .about-header {
   display: flex;
@@ -587,8 +615,15 @@ a {
   display: block;
 }
 .smooth-scroll-wrapper .content .quote-sec .about-info-show {
-  visibility: visible;
-  transform: translateY(-50%) translateX(0);
+  width: 100%;
+  opacity: 1;
+  pointer-events: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.smooth-scroll-wrapper .content .quote-sec .about-info.about-info-closing {
+  width: 100% !important;
+  transition: opacity 0.45s ease;
 }
 .smooth-scroll-wrapper .content .quote-sec .quote {
   font-size: 4.5em;

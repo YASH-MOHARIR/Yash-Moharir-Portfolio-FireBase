@@ -425,16 +425,70 @@ var about_info_container = document.querySelector(".about-info");
 var about_heading = document.querySelector(".about-heading");
 var about_text_content = document.querySelector(".about-text-content");
 
-about_btn.addEventListener("click", () => {
+var about_text_original = about_text_content ? about_text_content.innerHTML : "";
+
+function animateWordsReveal() {
+  if (!about_text_content) return;
+  var tempDiv = document.createElement("div");
+  tempDiv.innerHTML = about_text_original;
+  var wordEls = [];
+  function collect(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      var words = node.textContent.split(/\s+/).filter(Boolean);
+      words.forEach(function (w) {
+        var span = document.createElement("span");
+        span.className = "word-reveal";
+        span.textContent = w;
+        wordEls.push(span);
+      });
+    } else if (node.nodeType === Node.ELEMENT_NODE && node.classList && node.classList.contains("about-highlight")) {
+      var wrap = document.createElement("span");
+      wrap.className = "word-reveal";
+      wrap.appendChild(node.cloneNode(true));
+      wordEls.push(wrap);
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      for (var i = 0; i < node.childNodes.length; i++) {
+        collect(node.childNodes[i]);
+      }
+    }
+  }
+  collect(tempDiv);
+  about_text_content.innerHTML = "";
+  wordEls.forEach(function (el, i) {
+    about_text_content.appendChild(el);
+    if (i < wordEls.length - 1) {
+      about_text_content.appendChild(document.createTextNode(" "));
+    }
+  });
+  var bulletAnimationDuration = 1000;
+  wordEls.forEach(function (el, i) {
+    setTimeout(function () {
+      el.classList.add("visible");
+    }, bulletAnimationDuration + 80 + i * 40);
+  });
+}
+
+function resetAboutContent() {
+  if (about_text_content && about_text_original) {
+    about_text_content.innerHTML = about_text_original;
+  }
+}
+
+about_btn.addEventListener("click", function () {
   about_heading.style.opacity = 1;
-  about_text_content.style.opacity = 1;
   about_info_container.classList.add("about-info-show");
+  animateWordsReveal();
 });
 
-about_info_close_btn.addEventListener("click", () => {
+about_info_close_btn.addEventListener("click", function () {
   about_heading.style.opacity = 0;
-  about_text_content.style.opacity = 0;
+  about_info_container.classList.add("about-info-closing");
   about_info_container.classList.remove("about-info-show");
+  about_info_container.addEventListener("transitionend", function onCloseEnd() {
+    about_info_container.removeEventListener("transitionend", onCloseEnd);
+    about_info_container.classList.remove("about-info-closing");
+    resetAboutContent();
+  });
 });
 
 // PROJECT SECTION - IMAGE PARALLAX CAROUSEL
