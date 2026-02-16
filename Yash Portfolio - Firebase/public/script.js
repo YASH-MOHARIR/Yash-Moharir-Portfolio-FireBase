@@ -1,28 +1,32 @@
-/// Cursor Info Div
+/// Cursor Info Div - throttled mousemove for performance
 var cursor_info_div = document.getElementById("cursor_info_div");
+var cursorRAF = null;
+var lastMouseEvent = null;
 
-document.addEventListener("mousemove", (event) => {
-  const y = event.pageY + 15;
-  const x = event.pageX + 15;
-
-  const scrollLeft =
-    window.scrollX !== undefined
-      ? window.scrollX
-      : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
-  const scrollTop =
-    window.scrollY !== undefined
-      ? window.scrollY
-      : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+function updateCursorPosition() {
+  if (!lastMouseEvent || !cursor_info_div) return;
+  const e = lastMouseEvent;
+  lastMouseEvent = null;
+  const y = e.pageY + 15;
+  const x = e.pageX + 15;
+  const scrollLeft = window.scrollX ?? (document.documentElement || document.body).scrollLeft;
+  const scrollTop = window.scrollY ?? (document.documentElement || document.body).scrollTop;
 
   cursor_info_div.animate(
-    {
-      left: x - scrollLeft + "px",
-      top: y - scrollTop + "px",
-    },
+    { left: x - scrollLeft + "px", top: y - scrollTop + "px" },
     { duration: 2000, fill: "forwards" }
   );
-
   cursor_info_div.classList.add("cursor_start");
+}
+
+document.addEventListener("mousemove", (event) => {
+  lastMouseEvent = event;
+  if (!cursorRAF) {
+    cursorRAF = requestAnimationFrame(() => {
+      updateCursorPosition();
+      cursorRAF = null;
+    });
+  }
 });
 
 //////// Smooth Scroll Control with Fixed Height System
@@ -221,49 +225,38 @@ const scroller_parent = document.querySelector(".scroller-parent");
 const scroller_thumb = document.querySelector(".scroller-thumb");
 var timer = null;
 
-// Update scroll bar on scroll
-document.addEventListener("scroll", () => {
-  // Calculate progress based on scroll position
+// Update scroll bar on scroll - passive listener for scroll performance
+document.addEventListener("scroll", function () {
+  if (!scroller_parent || !scroller_thumb) return;
   const scrollTop = window.pageYOffset;
   const scrollHeight = document.body.scrollHeight - window.innerHeight;
+  if (scrollHeight <= 0) return;
   const scrollPercent = (scrollTop / scrollHeight) * 100;
-  
-  // Position thumb based on scroll percentage
-  const maxThumbTravel = 85; // Maximum travel in %
+  const maxThumbTravel = 85;
   const thumbPosition = (scrollPercent / 100) * maxThumbTravel;
   scroller_thumb.style.top = thumbPosition + "%";
-  
-  // Update footer position
-  const footer = document.querySelector(".footer");
-  if (footer) {
-    footer.style.bottom = `${thumbPosition - 84}%`;
-  }
-
-  // Show/hide scroll bar with timer
+  var footer = document.querySelector(".footer");
+  if (footer) footer.style.bottom = (thumbPosition - 84) + "%";
   if (timer !== null) {
-    scroller_parent.animate(
-      { opacity: 1 },
-      { duration: 300, fill: "forwards" }
-    );
+    scroller_parent.animate({ opacity: 1 }, { duration: 300, fill: "forwards" });
     clearTimeout(timer);
   }
   timer = setTimeout(function () {
-    scroller_parent.animate(
-      { opacity: 0 },
-      { duration: 300, fill: "forwards" }
-    );
+    scroller_parent.animate({ opacity: 0 }, { duration: 300, fill: "forwards" });
   }, 2000);
-});
+}, { passive: true });
 
-//Navbar Text-Switch On Hover
+//Navbar Text-Switch On Hover (uses classes for unique selectors)
 var nav_menu_texts = document.querySelectorAll(".menu-item");
-var switch_text1 = document.querySelectorAll("#switch_text1");
-var switch_text2 = document.querySelectorAll("#switch_text2");
+var switch_text1 = document.querySelectorAll(".menu-link-a");
+var switch_text2 = document.querySelectorAll(".menu-link-b");
 var nav_menu_img = document.querySelectorAll(".nav-menu-img");
 
 nav_menu_texts.forEach((nav_menu_text, i) => {
-  nav_menu_text.addEventListener("mouseenter", () => text_switch(switch_text1[i], switch_text2[i], nav_menu_img[i]));
-  nav_menu_text.addEventListener("mouseleave", () => text_switch(switch_text1[i], switch_text2[i], nav_menu_img[i]));
+  if (switch_text1[i] && switch_text2[i]) {
+    nav_menu_text.addEventListener("mouseenter", () => text_switch(switch_text1[i], switch_text2[i], nav_menu_img[i]));
+    nav_menu_text.addEventListener("mouseleave", () => text_switch(switch_text1[i], switch_text2[i], nav_menu_img[i]));
+  }
 });
 
 function text_switch(switch_t1, switch_t2, nav_menu_img) {
@@ -323,9 +316,11 @@ nav_overlay.addEventListener("click", () => {
 
 function navOverlayToggle() {
   nav_overlay.classList.toggle("overlay-show");
+  var isOpen = nav_overlay.classList.contains("overlay-show");
+  if (nav_btn) nav_btn.setAttribute("aria-expanded", isOpen);
 
   //Overlay Toggle
-  nav_overlay.style.display = nav_overlay.classList.contains("overlay-show") ? "block" : "none";
+  nav_overlay.style.display = isOpen ? "block" : "none";
 
   //Menus Toggle
   if (window.getComputedStyle(nav_menu, null).display == "none") {
@@ -500,7 +495,7 @@ images.forEach((projectImage) => {
   });
 });
 
-var overlay_text_contents = document.querySelectorAll("#overlay_text_content");
+var overlay_text_contents = document.querySelectorAll(".overlay-text-content");
 var ghost_texts = document.querySelectorAll(".ghost_text");
 var goto_project_btn = document.querySelector(".goto-project");
 var goto_project_btn_svg = document.querySelector(".goto-project svg");
@@ -1008,46 +1003,82 @@ observer.observe(experiences_sec);
 observer.observe(project_sec);
 observer.observe(quote_sec);
 
-// Contact Form Handle
+// Contact Form Handle - with validation and rate limiting
 var contact_form = document.querySelector("#contact_form");
 var sender_Name = document.querySelector("#Sender_Name");
 var sender_Email = document.querySelector("#Sender_Email");
 var sender_Message = document.querySelector("#Sender_Message");
 var form_mssg = document.querySelector(".form-mssg");
+var form_btn = document.querySelector("#form-btn");
 
 const public_key = "WgzrhyPshQ_AFxpMT";
 const service_id = "service_y846wyc";
 const template_id = "template_tw58ohh";
+const RATE_LIMIT_MS = 60000; // 1 minute between submissions
+const MAX_FIELD_LENGTH = 500;
+const MAX_MESSAGE_LENGTH = 2000;
+var lastSubmitTime = 0;
 
 (function () {
-  emailjs.init({
-    publicKey: public_key,
-  });
+  emailjs.init({ publicKey: public_key });
 })();
 
-contact_form.addEventListener("submit", function (event) {
-  event.preventDefault();
-  
-  const sender_Data = {
-    senderName: sender_Name.value,
-    senderEmail: sender_Email.value,
-    senderMessage: sender_Message.value,
-  };
+function sanitize(str) {
+  if (typeof str !== "string") return "";
+  return str.trim().slice(0, MAX_FIELD_LENGTH).replace(/[<>]/g, "");
+}
 
-  form_mssg.innerText = "Sending...";
-  
-  emailjs.send(service_id, template_id, sender_Data).then(
-    () => {
-      console.log("SUCCESS!");
-      form_mssg.innerText = "Message Sent! Thank You For Contacting Me :D";
-      contact_form.reset();
-    },
-    (error) => {
-      console.log("FAILED...", error);
-      form_mssg.innerText = "Oops! Something went wrong. Please try again.";
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+if (contact_form) {
+  contact_form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    if (!form_mssg || !sender_Name || !sender_Email || !sender_Message) return;
+
+    var now = Date.now();
+    if (now - lastSubmitTime < RATE_LIMIT_MS) {
+      form_mssg.innerText = "Please wait a moment before sending again.";
+      return;
     }
-  );
-});
+
+    var name = sanitize(sender_Name.value);
+    var email = sanitize(sender_Email.value);
+    var message = sender_Message.value.trim().slice(0, MAX_MESSAGE_LENGTH).replace(/[<>]/g, "");
+
+    if (!name || name.length < 2) {
+      form_mssg.innerText = "Please enter a valid name.";
+      return;
+    }
+    if (!validateEmail(email)) {
+      form_mssg.innerText = "Please enter a valid email address.";
+      return;
+    }
+    if (!message || message.length < 10) {
+      form_mssg.innerText = "Please enter a message (at least 10 characters).";
+      return;
+    }
+
+    form_btn && (form_btn.disabled = true);
+    form_mssg.innerText = "Sending...";
+
+    var sender_Data = { senderName: name, senderEmail: email, senderMessage: message };
+
+    emailjs.send(service_id, template_id, sender_Data).then(
+      function () {
+        lastSubmitTime = now;
+        form_mssg.innerText = "Message Sent! Thank You For Contacting Me :D";
+        contact_form.reset();
+      },
+      function (error) {
+        form_mssg.innerText = "Oops! Something went wrong. Please try again.";
+      }
+    ).finally(function () {
+      form_btn && (form_btn.disabled = false);
+    });
+  });
+}
 
 // Cursor Info update
 project_sec.addEventListener("mouseenter", () => mouseInfoUpdate("Drag"));
