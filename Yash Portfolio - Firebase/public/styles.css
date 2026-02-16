@@ -4,6 +4,32 @@
   font-family: "Lausanne";
   src: url("./Resources/Lausanne-Regular.otf");
 }
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  padding: 12px 20px;
+  background: #234a7d;
+  color: white;
+  z-index: 100;
+  font-weight: 600;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid #afcbff;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 body,
 html {
   width: 100vw;
@@ -14,9 +40,7 @@ html {
   position: relative;
   scroll-behavior: smooth;
   font-family: "Lausanne";
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
 }
 
 ::-webkit-scrollbar {
@@ -30,8 +54,7 @@ a {
 
 .cursor-info-div {
   background-color: rgba(144, 224, 255, 0.1019607843);
-  -webkit-backdrop-filter: blur(2px);
-          backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
   height: 0;
   width: 0;
   opacity: 0;
@@ -106,8 +129,7 @@ a {
   height: 15vh;
   transition: all 0.3s ease-out;
   overflow: hidden;
-  -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
 }
 .navbar .container .logo img {
   height: 100%;
@@ -166,8 +188,7 @@ a {
   overflow: hidden;
   padding: 20px 20px;
   background-color: rgba(255, 255, 255, 0.192);
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border-radius: 40px;
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.0392156863), 0 2px 4px rgba(0, 0, 0, 0.0392156863);
   transition: all 1s cubic-bezier(0.4, 0, 0.1, 1);
@@ -412,8 +433,7 @@ a {
 .smooth-scroll-wrapper .content .home-intro-section .right .home-img-bg .home-image {
   height: 100%;
   width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   transition: transform cubic-bezier(0.93, 0.12, 0.21, 0.81) 1.2s 1.2s;
   transform: translateY(100%);
 }
@@ -431,8 +451,7 @@ a {
   position: absolute;
   padding: 45px;
   background-color: rgba(175, 203, 255, 0.2509803922);
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border-radius: 20px;
   z-index: 10;
   transform: scale(0);
@@ -576,8 +595,7 @@ a {
   border-radius: 5px;
   transition: all 0.3s ease;
   transition-delay: 0.5s;
-  -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
   font-family: "Montserrat";
   font-weight: 300;
   position: absolute;
@@ -615,8 +633,7 @@ a {
   cursor: pointer;
 }
 .smooth-scroll-wrapper .content .main-section .goto-project svg {
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   font-family: "Montserrat";
   height: 5em;
   width: 5em;
@@ -652,23 +669,18 @@ a {
   left: 50%;
   top: 55%;
   background-color: rgba(255, 255, 255, 0.206);
-  -webkit-backdrop-filter: blur(50px);
-          backdrop-filter: blur(50px);
+  backdrop-filter: blur(50px);
   border-radius: 8px;
   transform: translate(0%, -50%);
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
   transition: all 0.5s ease-out;
   transition-delay: 0.2s;
 }
 .smooth-scroll-wrapper .content .main-section .img-track .image {
   border-radius: 10px;
   width: 20vmin;
-  -o-object-fit: cover;
-     object-fit: cover;
-  -o-object-position: 100% center;
-     object-position: 100% center;
+  object-fit: cover;
+  object-position: 100% center;
   transition: all 0.5s ease;
   transition-delay: 0.3s;
   cursor: pointer;
@@ -680,10 +692,8 @@ a {
   position: absolute;
   height: 100%;
   width: 94vw;
-  -o-object-fit: cover;
-     object-fit: cover;
-  -o-object-position: contain;
-     object-position: contain;
+  object-fit: cover;
+  object-position: contain;
 }
 .smooth-scroll-wrapper .content .skills {
   min-height: 100vh;
@@ -721,8 +731,7 @@ a {
   border: 1.5px solid rgba(175, 203, 255, 0.1137254902);
   border-radius: 8px;
   background-color: rgba(226, 236, 255, 0.3960784314);
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   transition: all 0.5s cubic-bezier(0.21, 0.96, 0.85, 1.01);
 }
 .smooth-scroll-wrapper .content .skills .skill-card-parent .wrapper .skills-card h3 {
@@ -883,8 +892,7 @@ a {
 }
 .smooth-scroll-wrapper .content .experiences .exp-card {
   background: rgba(255, 255, 255, 0.98);
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(35, 74, 125, 0.06);
   margin-bottom: 25px;
@@ -939,8 +947,7 @@ a {
 .smooth-scroll-wrapper .content .experiences .exp-card .exp-logo-circle img {
   width: 100%;
   height: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
+  object-fit: contain;
   border-radius: 50%;
 }
 .smooth-scroll-wrapper .content .experiences .exp-card .exp-title-block h3 {
@@ -961,8 +968,7 @@ a {
   border-radius: 20px;
   font-size: 0.8rem;
   font-weight: 600;
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 .smooth-scroll-wrapper .content .experiences .exp-card .exp-bottom-row {
   padding: 20px 24px;
@@ -1195,10 +1201,6 @@ a {
   height: 100%;
   padding-top: 20vh;
 }
-.footer .footer-main .row .form-control::-moz-placeholder {
-  font-family: "montserrat";
-  font-weight: 500;
-}
 .footer .footer-main .row p,
 .footer .footer-main .row a,
 .footer .footer-main .row .form-control::placeholder,
@@ -1293,12 +1295,6 @@ a {
   transition: all 2s cubic-bezier(0.26, 0.6, 0, 1);
   border: 1px solid transparent;
 }
-.footer .footer-main .row .right .mssg-form .form-control::-moz-placeholder {
-  font-size: 20px;
-  color: #234a7d;
-  -moz-transition: all 1.5s cubic-bezier(0.26, 0.6, 0, 1);
-  transition: all 1.5s cubic-bezier(0.26, 0.6, 0, 1);
-}
 .footer .footer-main .row .right .mssg-form .form-control::placeholder,
 .footer .footer-main .row .right .mssg-form .form-control {
   font-size: 20px;
@@ -1309,14 +1305,8 @@ a {
   -webkit-text-fill-color: #234a7d;
   -webkit-box-shadow: 0 0 0px 1000px rgba(175, 203, 255, 0.2509803922) inset;
 }
-.footer .footer-main .row .right .mssg-form .form-control::-moz-placeholder {
-  opacity: 0;
-}
 .footer .footer-main .row .right .mssg-form .form-control::placeholder {
   opacity: 0;
-}
-.footer .footer-main .row .right .mssg-form .placeholder-visible::-moz-placeholder {
-  opacity: 1;
 }
 .footer .footer-main .row .right .mssg-form .placeholder-visible::placeholder {
   opacity: 1;
@@ -1717,9 +1707,6 @@ a {
   .footer .footer-main .row .right .form-heading h1 {
     font-size: 4.5rem !important;
   }
-  .footer .footer-main .row .right .mssg-form .form-control::-moz-placeholder {
-    font-size: 2rem;
-  }
   .footer .footer-main .row .right .mssg-form .form-control,
   .footer .footer-main .row .right .mssg-form .form-btn,
   .footer .footer-main .row .right .mssg-form .form-control::placeholder {
@@ -1759,4 +1746,6 @@ a .liquid-glass-btn :hover {
   background: rgba(189, 26, 26, 0.2);
   border-color: rgba(218, 20, 20, 0.3);
   box-shadow: 0 8px 30px rgba(175, 203, 255, 0.3);
-}/*# sourceMappingURL=styles.css.map */
+}
+
+/*# sourceMappingURL=styles.css.map */
