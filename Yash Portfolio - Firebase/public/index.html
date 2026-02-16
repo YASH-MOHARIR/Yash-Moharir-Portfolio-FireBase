@@ -100,7 +100,11 @@
           <div class="nav-btns">
             <!-- //// -->
             <a href="https://www.linkedin.com/in/yash-moharir/" target="_blank" rel="noopener noreferrer" aria-label="Connect on LinkedIn">
-              <button id="linkedin_btn" class="liquid-glass-btn" aria-hidden="true"></button>
+              <button id="linkedin_btn" class="liquid-glass-btn linkedin-btn" aria-hidden="true"></button>
+            </a>
+
+            <a href="https://github.com/YASH-MOHARIR" target="_blank" rel="noopener noreferrer" aria-label="View GitHub profile">
+              <button id="github_btn" class="liquid-glass-btn github-btn" aria-hidden="true"></button>
             </a>
 
             <svg style="position: absolute; width: 0; height: 0">
@@ -114,8 +118,8 @@
                   result="map" />
                 <feGaussianBlur in="SourceGraphic" stdDeviation="0.02" result="blur" />
                 <feDisplacementMap id="disp" in="blur" in2="map" scale="1" xChannelSelector="R" yChannelSelector="G">
-                  <animate attributeName="scale" to="1.4" dur="0.3s" begin="linkedin_btn.mouseover" fill="freeze" />
-                  <animate attributeName="scale" to="1" dur="0.3s" begin="linkedin_btn.mouseout" fill="freeze" />
+                  <animate attributeName="scale" to="1.4" dur="0.3s" begin="linkedin_btn.mouseover;github_btn.mouseover" fill="freeze" />
+                  <animate attributeName="scale" to="1" dur="0.3s" begin="linkedin_btn.mouseout;github_btn.mouseout" fill="freeze" />
                 </feDisplacementMap>
               </filter>
             </svg>

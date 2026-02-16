@@ -2011,7 +2011,7 @@ a {
     outline: 0;
   }
 
-  .liquid-glass-btn::before {
+  .liquid-glass-btn.linkedin-btn::before {
     content: "";
     position: absolute;
     top: 50%;
@@ -2020,6 +2020,19 @@ a {
     width: 60%;
     height: 60%;
     background: url("./Resources/linkedin-logo.svg") center/contain no-repeat;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .liquid-glass-btn.github-btn::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    background: url("./Resources/github-logo.svg") center/contain no-repeat;
     z-index: 1;
     pointer-events: none;
   }
