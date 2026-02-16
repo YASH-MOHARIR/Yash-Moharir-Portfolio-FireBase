@@ -83,15 +83,7 @@ function recalcLayoutHeights() {
       // Update scroll bar
       updateScrollBar();
       
-      // Only log during development
-      if (!isInitialized) {
-        console.log('Initial layout calculated:', {
-          contentHeight,
-          footer_height,
-          experiencesBuffer,
-          finalHeight
-        });
-      }
+      // Layout calculation complete
     }
   } catch (error) {
     console.error('Error recalculating layout:', error);
@@ -187,17 +179,45 @@ window.addEventListener("load", () => {
 
 // Expose global recalculation function for manual triggers
 window.recalculateLayout = function() {
-  console.log('Manual layout recalculation triggered');
   recalcLayoutHeights();
 };
 
-// Smooth scroll animation function
+// Smooth scroll animation function - optimized to pause when idle
+var callScroll = null;
+var scrollTimeout = null;
+var isScrolling = false;
+
 function smoothScroll() {
   offset += (window.pageYOffset - offset) * speed;
   scrollWrap.style.transform = "translateY(-" + offset + "px)";
-  callScroll = requestAnimationFrame(smoothScroll);
+  
+  // Only continue if still scrolling or offset hasn't caught up
+  if (isScrolling || Math.abs(window.pageYOffset - offset) > 0.5) {
+    callScroll = requestAnimationFrame(smoothScroll);
+  } else {
+    callScroll = null;
+  }
 }
 
+// Start/restart scroll animation when user scrolls
+function startSmoothScroll() {
+  isScrolling = true;
+  clearTimeout(scrollTimeout);
+  
+  // If not already animating, start
+  if (!callScroll) {
+    callScroll = requestAnimationFrame(smoothScroll);
+  }
+  
+  // Mark as not scrolling after 150ms of no scroll events
+  scrollTimeout = setTimeout(() => {
+    isScrolling = false;
+  }, 150);
+}
+
+document.addEventListener("scroll", startSmoothScroll, { passive: true });
+
+// Initial call to position content
 smoothScroll();
 
 //Scroll Navigator
@@ -223,10 +243,12 @@ function scrollToFooter() {
 /// Scroll Bar with fixed proportions
 const scroller_parent = document.querySelector(".scroller-parent");
 const scroller_thumb = document.querySelector(".scroller-thumb");
-var timer = null;
+const footer = document.querySelector(".footer");
+var scrollbarTimer = null;
+var scrollbarThrottleRAF = null;
 
-// Update scroll bar on scroll - passive listener for scroll performance
-document.addEventListener("scroll", function () {
+// Update scroll bar on scroll - throttled with RAF and passive listener
+function updateScrollbar() {
   if (!scroller_parent || !scroller_thumb) return;
   const scrollTop = window.pageYOffset;
   const scrollHeight = document.body.scrollHeight - window.innerHeight;
@@ -235,15 +257,22 @@ document.addEventListener("scroll", function () {
   const maxThumbTravel = 85;
   const thumbPosition = (scrollPercent / 100) * maxThumbTravel;
   scroller_thumb.style.top = thumbPosition + "%";
-  var footer = document.querySelector(".footer");
   if (footer) footer.style.bottom = (thumbPosition - 84) + "%";
-  if (timer !== null) {
-    scroller_parent.animate({ opacity: 1 }, { duration: 300, fill: "forwards" });
-    clearTimeout(timer);
-  }
-  timer = setTimeout(function () {
+  
+  scroller_parent.animate({ opacity: 1 }, { duration: 300, fill: "forwards" });
+  clearTimeout(scrollbarTimer);
+  scrollbarTimer = setTimeout(function () {
     scroller_parent.animate({ opacity: 0 }, { duration: 300, fill: "forwards" });
   }, 2000);
+}
+
+document.addEventListener("scroll", function () {
+  if (!scrollbarThrottleRAF) {
+    scrollbarThrottleRAF = requestAnimationFrame(() => {
+      updateScrollbar();
+      scrollbarThrottleRAF = null;
+    });
+  }
 }, { passive: true });
 
 //Navbar Text-Switch On Hover (uses classes for unique selectors)
@@ -646,7 +675,7 @@ main_section.addEventListener("touchmove", (e) => {
     {
       transform: `translate(${nextPercentage}%, -50%)`,
     },
-    { duration: 20000, fill: "forwards" }
+    { duration: 1200, fill: "forwards" }
   );
 
   for (const image of images) {
@@ -654,30 +683,46 @@ main_section.addEventListener("touchmove", (e) => {
       {
         objectPosition: `${100 + nextPercentage}% center`,
       },
-      { duration: 20000, fill: "forwards" }
+      { duration: 1200, fill: "forwards" }
     );
   }
-});
+}, { passive: true });
 
 main_section.addEventListener("touchend", (e) => {
   track.dataset.mousedown = 0;
   track.dataset.prevPercentage = track.dataset.percentage;
 });
 
-// Image Hover - Text Parallax
-main_section.addEventListener("mousemove", (e) => {
-  document.querySelectorAll(".overlay_text").forEach((overlayText) => {
+// Image Hover - Text Parallax (throttled with RAF)
+var overlayTexts = document.querySelectorAll(".overlay_text");
+var parallaxRAF = null;
+var lastParallaxEvent = null;
+
+function updateParallax() {
+  if (!lastParallaxEvent) return;
+  const e = lastParallaxEvent;
+  lastParallaxEvent = null;
+  
+  overlayTexts.forEach((overlayText) => {
     const parallaxSpeed = overlayText.getAttribute("data-parallax-speed");
     const x = -(window.innerWidth - e.pageX * parallaxSpeed) / 90;
     const y = -(window.innerHeight - e.pageY * parallaxSpeed) / 90;
 
     overlayText.animate(
-      {
-        transform: `translateX(${x}px) translateY(${y}px)`,
-      },
+      { transform: `translateX(${x}px) translateY(${y}px)` },
       { duration: 1000, fill: "forwards" }
     );
   });
+}
+
+main_section.addEventListener("mousemove", (e) => {
+  lastParallaxEvent = e;
+  if (!parallaxRAF) {
+    parallaxRAF = requestAnimationFrame(() => {
+      updateParallax();
+      parallaxRAF = null;
+    });
+  }
 });
 
 // Image-open ON-Click logic with animation lock
@@ -894,8 +939,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Footer Animation
-var footer = document.querySelector(".footer");
+// Footer Animation (footer already declared in scroll bar section)
 var mssg_form = document.querySelector(".mssg-form");
 var form_btn = document.querySelector(".form-btn");
 var form_elements = document.querySelectorAll(".form-control");
@@ -1072,10 +1116,31 @@ const RATE_LIMIT_MS = 60000; // 1 minute between submissions
 const MAX_FIELD_LENGTH = 500;
 const MAX_MESSAGE_LENGTH = 2000;
 var lastSubmitTime = 0;
+var emailjsInitialized = false;
 
-(function () {
-  emailjs.init({ publicKey: public_key });
-})();
+// Defer EmailJS initialization until contact section is visible
+function initEmailJS() {
+  if (!emailjsInitialized && typeof emailjs !== 'undefined') {
+    emailjs.init({ publicKey: public_key });
+    emailjsInitialized = true;
+  }
+}
+
+// Use IntersectionObserver to lazy-init EmailJS when contact form is near viewport
+if (contact_form && 'IntersectionObserver' in window) {
+  var emailObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        initEmailJS();
+        emailObserver.disconnect();
+      }
+    });
+  }, { rootMargin: '200px' }); // Init 200px before it comes into view
+  emailObserver.observe(contact_form);
+} else {
+  // Fallback: init immediately if no IntersectionObserver
+  initEmailJS();
+}
 
 function sanitize(str) {
   if (typeof str !== "string") return "";
@@ -1135,37 +1200,37 @@ if (contact_form) {
 }
 
 // Cursor Info update
-project_sec.addEventListener("mouseenter", () => mouseInfoUpdate("Drag"));
-project_sec.addEventListener("mouseleave", () => mouseInfoUpdate("Scroll"));
-footer.addEventListener("mouseenter", () => mouseInfoUpdate(":D"));
-footer.addEventListener("mouseleave", () => mouseInfoUpdate("Scroll"));
-
 function mouseInfoUpdate(infoText) {
+  if (!cursor_info_div) return;
   cursor_info_div.animate(
-    {
-      filter: "blur(10px)",
-      opacity: 0.1,
-    },
+    { filter: "blur(10px)", opacity: 0.1 },
     { duration: 500, fill: "forwards" }
   );
-
   cursor_info_div.textContent = infoText;
-
   cursor_info_div.animate(
-    {
-      filter: "blur(0px)",
-      opacity: 1,
-    },
+    { filter: "blur(0px)", opacity: 1 },
     { duration: 500, fill: "forwards" }
   );
 }
 
-// Sound on hover
+// Cursor info event listeners with null checks
+if (project_sec) {
+  project_sec.addEventListener("mouseenter", () => mouseInfoUpdate("Drag"));
+  project_sec.addEventListener("mouseleave", () => mouseInfoUpdate("Scroll"));
+}
+if (footer) {
+  footer.addEventListener("mouseenter", () => mouseInfoUpdate(":D"));
+  footer.addEventListener("mouseleave", () => mouseInfoUpdate("Scroll"));
+}
+
+// Sound on hover - with null check
 var snapAudio = document.querySelector("#snapAudio");
 var btns = document.getElementsByTagName("button");
 
-for (let i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("mouseover", () => {
-    snapAudio.play().catch(e => console.log('Audio play failed:', e));
-  });
+if (snapAudio) {
+  for (let i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("mouseover", () => {
+      snapAudio.play().catch(() => {});
+    });
+  }
 }

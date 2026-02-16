@@ -134,9 +134,10 @@ var visit_project_link = document.querySelector("#visit_project_link");
 
 var active_project = project_data[active_project_index];
 
-project_title_text.textContent = active_project.project_title;
-project_description.textContent = active_project.project_description;
-visit_project_link.setAttribute("href", active_project.project_visit_link);
+// Null checks for required DOM elements
+if (project_title_text) project_title_text.textContent = active_project.project_title;
+if (project_description) project_description.textContent = active_project.project_description;
+if (visit_project_link) visit_project_link.setAttribute("href", active_project.project_visit_link);
 // Theme Control
 const background_colors = [
   "#DAD4FF",
@@ -166,8 +167,8 @@ const text_colors = [
 document.body.style.backgroundColor = background_colors[active_project_index] + "80";
 document.body.style.color = text_colors[active_project_index];
 
-navbar_btn_dots.style.fill = text_colors[active_project_index];
-nav_btns.style.color = text_colors[active_project_index];
+if (navbar_btn_dots) navbar_btn_dots.style.fill = text_colors[active_project_index];
+if (nav_btns) nav_btns.style.color = text_colors[active_project_index];
 
 // Project tech
 var project_tech = document.querySelector("#project-tech");
@@ -366,25 +367,53 @@ function navOverlayToggle() {
   }
 }
 
-// Smooth Scroll Control
+// Smooth Scroll Control - optimized to pause when idle
 const body = document.body,
   scrollWrap = document.getElementsByClassName("smooth-scroll-wrapper")[0],
-  width = scrollWrap.getBoundingClientRect().width,
+  width = scrollWrap ? scrollWrap.getBoundingClientRect().width : 0,
   speed = 0.1;
 
 var offset = 0;
+var callScroll = null;
+var scrollTimeout = null;
+var isScrolling = false;
 
-body.style.height = Math.floor(width) + "px";
+if (scrollWrap) {
+  body.style.height = Math.floor(width) + "px";
+}
 
 function smoothScroll() {
+  if (!scrollWrap) return;
   offset += (window.scrollY - offset) * speed;
 
   var scroll = "translateX(-" + offset + "px) translateZ(0)";
   scrollWrap.style.transform = scroll;
 
-  callScroll = requestAnimationFrame(smoothScroll);
+  // Only continue if still scrolling or offset hasn't caught up
+  if (isScrolling || Math.abs(window.scrollY - offset) > 0.5) {
+    callScroll = requestAnimationFrame(smoothScroll);
+  } else {
+    callScroll = null;
+  }
 }
 
+// Start/restart scroll animation when user scrolls
+function startSmoothScroll() {
+  isScrolling = true;
+  clearTimeout(scrollTimeout);
+  
+  if (!callScroll) {
+    callScroll = requestAnimationFrame(smoothScroll);
+  }
+  
+  scrollTimeout = setTimeout(() => {
+    isScrolling = false;
+  }, 150);
+}
+
+document.addEventListener("scroll", startSmoothScroll, { passive: true });
+
+// Initial call
 smoothScroll();
 
 //// BTN
@@ -442,13 +471,14 @@ observer.observe(project_description_div);
 observer.observe(tech_div);
 observer.observe(recognitions_div);
 
-///
+// Sound on hover - with null check
 var snapAudio = document.querySelector("#snapAudio");
 var btns = document.getElementsByTagName("button");
 
-console.log(btns);
-for (let i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("mouseover", () => {
-    snapAudio.play();
-  });
+if (snapAudio) {
+  for (let i = 0; i < btns.length; i++) {
+    btns[i].addEventListener("mouseover", () => {
+      snapAudio.play().catch(() => {});
+    });
+  }
 }
